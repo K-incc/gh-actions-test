@@ -15,12 +15,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Dump GitHub env object
-      env:
-           ENV_CONTEXT: ${{ toJson(env) }}
-           run: echo "$ENV_CONTEXT"
     - name: Install Packages
-      run: npm install
+      run: |
+        unset CI
+        npm install
     - name: Deploy to GH Pages
       run: |
         git config --global user.email ${{secrets.EMAIL}}
